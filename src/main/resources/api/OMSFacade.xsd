@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns="http://www.w3.org/2001/XMLSchema" xmlns:xs="http://www.w3.org/2001/XMLSchema"
+	targetNamespace="http://com.amdocs.bss.bsl/" xmlns:tns="http://com.amdocs.bss.bsl/"
+	elementFormDefault="qualified">
+
+	<xs:element name="GetDefaultBillingCustomerRequest" type="tns:GetDefaultBillingCustomerRequest" />
+	<xs:element name="CheckIsSuperDealerRequest" type="tns:CheckIsSuperDealerRequestType"></xs:element>
+	<xs:element name="CheckIsSuperDealerResponse" type="tns:CheckIsSuperDealerResponseType"></xs:element>
+	
+	
+	<xs:complexType name="GetDefaultBillingCustomerRequest">
+		<xs:sequence>
+			<xs:element name="billingCustomerId" type="tns:MandatoryString"/>
+		</xs:sequence>
+	</xs:complexType>
+	
+	<xs:element name="GetDefaultBillingCustomerResponse" type="tns:GetDefaultBillingCustomerResponse" />
+	
+	<xs:complexType name="GetDefaultBillingCustomerResponse">
+		<xs:sequence>
+			<xs:element name="defaultBillingCustomerId" type="tns:MandatoryString"/>
+		</xs:sequence>
+	</xs:complexType>
+	
+	<xs:complexType name="CheckIsSuperDealerRequestType">
+		<xs:sequence>
+			<xs:element type="tns:MandatoryString" name="dealerCode" minOccurs="1" maxOccurs="1"></xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	
+	<xs:complexType name="CheckIsSuperDealerResponseType">
+		<xs:sequence>
+			<xs:element type="tns:MandatoryString" name="subDealers" minOccurs="1" maxOccurs="unbounded"></xs:element>
+		</xs:sequence>
+	</xs:complexType>	
+	
+	<xs:element name="BSLHeader" type="tns:BSLHeader" />
+		
+	<xs:complexType name="BSLHeader">
+		<xs:sequence>
+			<xs:element name="Username" type="xs:string"/>
+			<xs:element name="Password" type="xs:string"/>
+			<xs:element name="Token" type="xs:string" minOccurs="0"/>
+			<xs:element name="CallingSystem" type="xs:string" minOccurs="0"/>
+			<xs:element name="MessageCreationTimestamp" type="xs:dateTime"/>
+			<xs:element name="MessageID" type="xs:string"/>
+			<xs:element name="DealerCode" type="xs:string"/>
+			<xs:element name="SalesChannel" type="xs:string" minOccurs="0"/>
+			<xs:element name="DealerOrganisation" type="xs:string" minOccurs="0"/>
+			<xs:element name="ShopID" type="xs:string" minOccurs="0"/>
+			<xs:element name="CustomerID" type="xs:string" minOccurs="0"/>
+			<xs:element name="EndUserName" type="xs:string"/>
+		</xs:sequence>
+	</xs:complexType>
+	
+	<xs:element name="BSLFault" type="tns:BSLFault" />
+	
+	<xs:complexType name="BSLFault">
+		<xs:sequence>
+			<xs:element name="error" type="tns:BSLError" minOccurs="1"
+				maxOccurs="unbounded" />
+		</xs:sequence>
+	</xs:complexType>
+	
+	<xs:complexType name="BSLError">
+			<xs:sequence>
+				<xs:element name="errorCode" type="xs:string" minOccurs="1"
+					maxOccurs="1" />
+				<xs:element name="errorMessage" type="xs:string"
+					minOccurs="1" maxOccurs="1" />
+				<xs:element name="detail" type="xs:string" minOccurs="0"
+					maxOccurs="1" />
+			</xs:sequence>
+	</xs:complexType>
+	
+	<xs:simpleType name="MandatoryString">
+		<xs:restriction base="xs:string">
+			<xs:minLength value="1"/>
+		</xs:restriction>
+	</xs:simpleType>
+</xs:schema>

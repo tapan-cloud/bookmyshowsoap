@@ -1,0 +1,94 @@
+<!-- WSDL Name: BookMyShow -->
+
+<definitions name="BookMyShow.wsdl" targetNamespace="http://com.apisero.bookmyshow/"
+	xmlns="http://schemas.xmlsoap.org/wsdl/" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/"
+	xmlns:tns="http://com.apisero.bookmyshow/" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+	<types>
+		<xs:schema targetNamespace="http://com.apisero.bookmyshow/">
+
+			
+            <xs:element name="BookMySHowRequest" type="tns:BookMySHowRequest" />
+			<xs:element name="BookMySHowResponse" type="tns:BookMySHowResponse" />   
+            
+            	
+			
+			<xs:complexType name="BookMySHowRequest">
+				<xs:sequence>
+					<xs:element name="id" type="xs:string" />
+					<xs:element name="name" type="xs:string" />
+					<xs:element name="userName" type="xs:string" minOccurs="0" />
+					<xs:element name="age" type="xs:integer"
+						minOccurs="0" />
+					<xs:element name="language" type="xs:string"
+						minOccurs="0" />
+					<xs:element name="genre" type="xs:string" />
+					<xs:element name="price" type="xs:string" />
+					<xs:element name="groupBooking" type="xs:boolean" minOccurs="0" />
+					<xs:element name="details" type="tns:detailsType" minOccurs="0" />
+					</xs:sequence>
+			</xs:complexType>
+			<xs:complexType name="detailsType">
+				<xs:sequence>
+					<xs:element name="noOfSeats" type="xs:int" />
+					<xs:element name="category" type="xs:string" />
+					
+					</xs:sequence>
+			</xs:complexType>
+
+
+
+			<xs:complexType name="BookMySHowResponse">
+				<xs:sequence>
+					<xs:sequence>
+			<xs:element name="ticketId" type="xs:string" />
+					<xs:element name="userName" type="xs:string" minOccurs="0" />
+					<xs:element name="message" type="xs:string" minOccurs="0" />
+					<xs:element name="discountApplied" type="xs:integer" minOccurs="0" />
+					<xs:element name="timeOfBooking" type="xs:string" />
+					<xs:element name="noOfSeatsBooked" type="xs:integer" />
+					<xs:element name="bookedSeats" type="xs:string" />
+		</xs:sequence>
+				</xs:sequence>
+			</xs:complexType>
+
+			</xs:schema>
+			</types>
+	<message name="BookMySHowRequest">
+		<part name="parameters" element="tns:BookMySHowRequest" />
+	</message>
+
+	<message name="BookMySHowResponse">
+		<part name="parameters" element="tns:BookMySHowResponse" />
+	</message>
+
+	
+	
+	<portType name="BookMyShowPortType">
+			
+		<operation name="BookMySHow">
+			<input message="tns:BookMySHowRequest" />
+			<output message="tns:BookMySHowResponse" />
+		</operation>		
+	</portType>
+
+	<binding name="BookMyShowPortBinding" type="tns:BookMyShowPortType">
+		<soap:binding transport="http://schemas.xmlsoap.org/soap/http"
+			style="document" />			
+		<operation name="BookMySHow">
+			<soap:operation soapAction="" style="document" />
+			<input>
+				<soap:body use="literal" />
+			</input>
+			<output>
+				<soap:body use="literal" />
+			</output>
+		</operation>		
+		
+	</binding>
+
+	<service name="BookMyShowService">
+		<port name="BookMyShowPort" binding="tns:BookMyShowPortBinding">
+			<soap:address location="http://localhost:7001/BookMyShow" />
+		</port>
+	</service>
+</definitions>

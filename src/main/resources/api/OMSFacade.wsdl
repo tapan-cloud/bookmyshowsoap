@@ -1,0 +1,106 @@
+<!-- WSDL Name: OMSFacade IF IDD: 2.3b (OMS ch. 5.1.59)
+
+************ Version Information **************
+
+	Version: 1.0
+	Date: 8th April 2015 
+    Changes: added GetDefaultBillingCustomer
+		
+	Service 					Maturity Level 
+	GetDefaultBillingCustomer		100%
+	
+***********************************************
+Version: 2.0
+	Date: 6th August 2015 
+    Changes: added checkIssuperDealer
+		
+	Service 					Maturity Level 
+	checkIssuperDealer		100%
+	
+***********************************************
+--><definitions targetNamespace="http://com.amdocs.bss.bsl/" name="OMSFacade" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:tns="http://com.amdocs.bss.bsl/" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:oms="http://com.amdocs.bss.bsl/" xmlns="http://schemas.xmlsoap.org/wsdl/">
+	<types>
+		<xs:schema>
+			<xs:import namespace="http://com.amdocs.bss.bsl/" schemaLocation="xsd/OMSFacade.xsd"/>
+		</xs:schema>
+	</types>
+	
+	<message name="BSLFault">
+		<part name="fault" element="oms:BSLFault"/>
+	</message>
+
+	<message name="BSLHeader">
+		<part name="header" element="oms:BSLHeader"/>
+	</message>
+	
+	<message name="GetDefaultBillingCustomerRequest">
+		<part name="parameters" element="oms:GetDefaultBillingCustomerRequest"/>
+	</message>
+
+	<message name="GetDefaultBillingCustomerResponse">
+		<part name="parameters" element="oms:GetDefaultBillingCustomerResponse"/>
+	</message>
+	
+	<message name="CheckIsSuperDealerRequestMessage">
+		<part name="parameters" element="oms:CheckIsSuperDealerRequest"/>
+	</message>
+	
+	<message name="CheckIsSuperDealerResponseMessage">
+		<part name="parameters" element="oms:CheckIsSuperDealerResponse"/>
+	</message>
+
+	<portType name="OMSFacade">
+		<operation name="GetDefaultBillingCustomer">
+			<input message="tns:GetDefaultBillingCustomerRequest"/>
+			<output message="tns:GetDefaultBillingCustomerResponse"/>
+			<fault name="BSLFault" message="tns:BSLFault"/>
+		</operation>
+		
+		<operation name="CheckIsSuperDealer">
+			<input message="tns:CheckIsSuperDealerRequestMessage"/>
+			<output message="tns:CheckIsSuperDealerResponseMessage"/>
+			<fault name="BSLFault" message="tns:BSLFault"/>
+		</operation>
+		
+	</portType>
+	
+	<binding name="OMSFacadePortBinding" type="tns:OMSFacade">
+		<soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+		<operation name="GetDefaultBillingCustomer">
+			<soap:operation soapAction="" style="document"/>
+			<input>
+				<soap:body use="literal"/>
+				<soap:header use="literal" part="header" message="tns:BSLHeader"/>
+			</input>
+			<output>
+				<soap:body use="literal"/>
+				<soap:header use="literal" part="header" message="tns:BSLHeader"/>
+			</output>
+			<fault name="BSLFault">
+				<soap:fault name="BSLFault"/>
+			</fault>
+		</operation>
+		
+		<operation name="CheckIsSuperDealer">
+			<soap:operation soapAction="CheckIsSuperDealer"/>
+			<input>
+				<soap:body use="literal"/>
+				<soap:header use="literal" part="header" message="tns:BSLHeader"/>
+			</input>
+			<output>
+				<soap:body use="literal"/>
+				<soap:header use="literal" part="header" message="tns:BSLHeader"/>
+			</output>
+			<fault name="BSLFault">
+				<soap:fault name="BSLFault"/>
+			</fault>
+		</operation>
+		
+  	</binding>
+	
+	<service name="OMSFacade">
+		<port name="OMSFacadePort" binding="tns:OMSFacadePortBinding">
+			<soap:address location="http://localhost:7001/OMSFacade/OMSFacade"/>
+		</port>
+	</service>	
+</definitions>
